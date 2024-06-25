@@ -1,0 +1,17 @@
+name = "BeltManipulator"
+uuid = "6698307b-50c6-407a-88f7-b6c4a21b22aa"
+authors = ["Christoph Stoeffler <christoph.stoeffler@dfki.de>"]
+version = "0.1.0"
+
+[deps]
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+GLMakie = "e9467ef8-e4e7-5192-8a1a-b1aee30e663a"
+LightXML = "9c8b4983-aa76-5018-a973-4c85ecc9e179"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+MeshCat = "283c5d60-a78f-5afe-a0af-af636b173e11"
+MeshCatMechanisms = "6ad125db-dd91-5488-b820-c1df6aab299d"
+RigidBodyDynamics = "366cf18f-59d5-5db9-a4de-86a9f6786172"
+SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"

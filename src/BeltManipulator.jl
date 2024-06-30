@@ -12,6 +12,7 @@ using FileIO
 import LightXML: parse_file, root, get_elements_by_tagname, attribute, set_attribute, save_file
 
 using CairoMakie
+
 # this is used to selectively display interactive plots with OpenGL
 import GLMakie as GL
 # Ensure standard backend Cairo is activated  

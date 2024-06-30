@@ -25,8 +25,8 @@ begin
     # friction is not considered for the trajectory comparison
     # friction_coeffs = [(1.1, 0.1), (0.5, 0.05), (0.2, 0.02), (0.2, 0.02)]
 
-    arm_js = RBDMechanism(urdf_path, S = diagm(ones(4)));
-    arm_as = RBDMechanism(urdf_path, friction = nothing, S = S);
+    arm_js = RBDMechanism(urdf_path, S = diagm(ones(4)), visualizer = false);
+    arm_as = RBDMechanism(urdf_path, friction = nothing, S = S, visualizer = false);
 
     # building the two four-DOF models
     model_js = ODEModel(4, arm_js);
@@ -99,12 +99,6 @@ begin
     iLQR!(trj_aoptimal_as, model_as, op_as)
 end
 
-# animation and inspection
-animate_mechanism!(arm_js, trj_joptimal_js)
-plot_trajectory(trj_joptimal_js)
-
-animate_mechanism!(arm_as, trj_aoptimal_as)
-plot_trajectory(trj_aoptimal_as)
 
 # mapping states of the actuation-space optimal trajectory in actuation space
 joint2act_map!(trj_aoptimal_as, arm_as, states = true, torque = false);
@@ -125,15 +119,16 @@ act2joint_map!(trj_aoptimal_js, arm_as, states = true, torque = true);
 e_fig = BeltManipulator.power_comparison([
     (trj_naive_js, trj_naive_as),
     (trj_joptimal_js, trj_joptimal_as),
-    (trj_aoptimal_js, trj_aoptimal_as)], interactive = true)
+    (trj_aoptimal_js, trj_aoptimal_as)], interactive = false)
 
-save("power_comparison.png", e_fig)
-    
-# Code for creating the overlayed graphics
-# before usage: SET DOWNLOAD DIRECTORY OF BROWSER TO 'meshcat_plots' 
-rate = 20
-n = length(1:rate:length(trj_naive_js.X)) 
-vis_frame_saver(arm_as, trj_naive_js.X, 1:rate:length(trj_naive_js.X))
-plt = frame_overlay(pwd()*"/images/meshcat_plots/",n,alpha_start=0.5) 
-savefig(pwd()*"/images/naive_traj.png")
-display(plt)  
+BeltManipulator.CairoMakie.save("power_comparison.png", e_fig)
+
+
+# # Code for creating the overlayed graphics
+# # before usage: SET DOWNLOAD DIRECTORY OF BROWSER TO 'meshcat_plots' 
+# rate = 20
+# n = length(1:rate:length(trj_naive_js.X)) 
+# vis_frame_saver(arm_as, trj_naive_js.X, 1:rate:length(trj_naive_js.X))
+# plt = frame_overlay(pwd()*"/images/meshcat_plots/",n,alpha_start=0.5) 
+# savefig(pwd()*"/images/naive_traj.png")
+# display(plt)  

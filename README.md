@@ -1,4 +1,7 @@
 # BeltManipulator.jl
+<p align="center">
+    <img src="images/arm_view.png" alt="arm" width="500"/>
+</p>
 
 **This package is accompanying code for:**
 C. Stoeffler, J. Janzen, A. del Rio and H. Peters, Design Analysis of a Novel Belt-Driven Manipulator for Fast Movements, IEEE 20th International Conference on Automation Science and Engineering (CASE 2024), submitted March 2024
@@ -139,4 +142,4 @@ The above functions can all be run from the shell that stores the power comparis
 ```
 julia <path_to_BeltManipulator/src/example.jl>
 ```
-However, due to just-in-time compilation and rebuilding of model variables, it is much faster to alter optimization parameters (e.g. weights) in one interactive julia kernel like above.
+However, due to just-in-time compilation and rebuilding of model variables, it is much faster to alter optimization parameters (e.g. weights) in one interactive Julia kernel like above.

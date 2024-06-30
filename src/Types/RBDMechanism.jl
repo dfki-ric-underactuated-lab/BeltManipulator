@@ -5,8 +5,8 @@ mutable struct RBDMechanism
     dyncache::RigidBodyDynamics.DynamicsResultCache    
     
     # visualization
-    vis::Visualizer;
-    mvis::MechanismVisualizer;
+    vis::Union{Nothing, Visualizer};
+    mvis::Union{Nothing, MechanismVisualizer};
     
     friction::Union{Nothing, Vector{Tuple{Float64, Float64}}} 
 
@@ -14,17 +14,21 @@ mutable struct RBDMechanism
     S::Matrix{Float64}
     S_::Matrix{Float64}
 
-    function RBDMechanism(urdf::String; S = nothing, friction::Union{Nothing, Vector{Tuple{Float64, Float64}}}  = nothing)
+    function RBDMechanism(urdf::String; S = nothing, friction::Union{Nothing, Vector{Tuple{Float64, Float64}}}  = nothing, visualizer::Bool = true)
 
         rbd_model = parse_urdf(urdf)
         statecache = StateCache(rbd_model)
         dyncache = DynamicsResultCache(rbd_model)        
 
         # creating visualizer object and rendering it
-        vis = Visualizer()
-        render(vis)
-        # create mechanism visualizer object
-        mvis = MechanismVisualizer(rbd_model, URDFVisuals(urdf), vis) 
+        if visualizer
+            vis = Visualizer()
+            render(vis)
+            # create mechanism visualizer object
+            mvis = MechanismVisualizer(rbd_model, URDFVisuals(urdf), vis) 
+        else
+            vis = nothing; mvis = nothing
+        end
 
         # checking, if structure matrix and friction vector is of correct dimension
         dof = num_positions(rbd_model)
